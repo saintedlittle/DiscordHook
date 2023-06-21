@@ -1,0 +1,29 @@
+[package]
+name = "discord_activity"
+version = "0.1.0"
+edition = "2021"
+build = "src/build.rs"
+
+
+[package.metadata.winres]
+ProductName = "DISCORD ACTIVITY HOOK SERVICE"
+ProductVersion = "0.1"
+OriginalFilename = "DISCORD_ACTIVITY.EXE"
+LegalCopyright = "MIT LICENSE 2023"
+
+[profile.release]
+opt-level = "z"
+codegen-units = 1
+lto = true
+panic = "abort"
+
+[dependencies]
+discord-rich-presence = "0.2.3"
+
+
+[target.'cfg(windows)'.dependencies]
+winapi = "0.3.9"
+advapi32-sys = "0.2.0"
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1"
