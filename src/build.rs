@@ -17,6 +17,7 @@ fn main() {
             </trustInfo>
             </assembly>
         "#);
+
     res.compile().unwrap();
 }
 

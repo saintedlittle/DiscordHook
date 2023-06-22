@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 mod service;
 
 use discord_rich_presence::{activity, DiscordIpc, DiscordIpcClient};
@@ -65,25 +67,24 @@ fn discord_loop(mut client: DiscordIpcClient) {
 
     let _activity = activity::Activity::new();
 
-    client.connect().ok().expect("Panic message!");
+    client.connect().ok().expect("Connect panic message!");
     client.set_activity(activity::Activity::new()
         .state(STATE)
         .details(DETAILS)
         .assets(set_assets())
         .party(set_party())
         .buttons(set_buttons())
-    ).expect("Panic message!");
+    ).expect("Set Activity Panic message!");
 
     println!("Connected!");
     loop {}
 }
 
 fn main() {
-    let client = DiscordIpcClient::new(CLIENT_ID).expect("Panic message!");
+    let client = DiscordIpcClient::new(CLIENT_ID).expect("Client instance Panic message!");
 
     #[cfg(windows)]
-    start_as_hidden_service(String::from(SERVICE_FOLDER), String::from(PATH_TO_SERVICE)).expect("panic message!");
+    start_as_hidden_service(String::from(SERVICE_FOLDER), String::from(PATH_TO_SERVICE)).expect("Start as service panic message!");
 
     discord_loop(client);
 }
-
